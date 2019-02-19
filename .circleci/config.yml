@@ -76,16 +76,23 @@ jobs:
             docker cp "$(docker ps -q -a -l -f name=create-package)":/app/packages packages
       - store_artifacts:
           path: packages
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - /app/packages
   publish-package-release:
     docker:
       - image: circleci/node:10
     steps:
       - checkout
       - attach_workspace:
-          at: /root/app/packages
+          at: /tmp/workspace
       - setup_remote_docker
       - run: |
-          ls /root/app/packages
+          ls /tmp/workspace/
           cat ./script/release_github.js
           ./script/release_github.sh
 
