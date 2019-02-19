@@ -82,7 +82,7 @@ jobs:
           root: workspace
           # Must be relative path from root
           paths:
-            - /app/packages
+            - app/packages
   publish-package-release:
     docker:
       - image: circleci/node:10
