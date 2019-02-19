@@ -49,7 +49,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - <<: *auth_quay
-      # - <<: *pull_docker
+      - <<: *pull_docker
       - <<: *build_docker
       - <<: *test
       - <<: *store-test
@@ -76,6 +76,18 @@ jobs:
             docker cp "$(docker ps -q -a -l -f name=create-package)":/app/packages packages
       - store_artifacts:
           path: packages
+  publish-package-release:
+    <<: *docker-defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - setup_remote_docker
+      - run: |
+          ls /tmp/workspace
+          cat ./script/release_github.js
+          ./script/release_github.sh
+
 
 workflows:
   version: 2
@@ -85,4 +97,10 @@ workflows:
     - create-package:
         requires:
           - build-and-test
+    - publish-package:
+        requires:
+          - create-package
+        # filters:
+        #   branches:
+        #     only: master
 
