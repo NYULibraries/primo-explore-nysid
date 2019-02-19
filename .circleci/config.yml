@@ -97,7 +97,7 @@ workflows:
     - create-package:
         requires:
           - build-and-test
-    - publish-package:
+    - publish-package-release:
         requires:
           - create-package
         # filters:
