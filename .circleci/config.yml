@@ -77,14 +77,15 @@ jobs:
       - store_artifacts:
           path: packages
   publish-package-release:
-    <<: *docker-defaults
+    docker:
+      - image: circleci/node:10-alpine
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: /root/app/packages
       - setup_remote_docker
       - run: |
-          ls /tmp/workspace
+          ls /root/app/packages
           cat ./script/release_github.js
           ./script/release_github.sh
 
@@ -93,13 +94,13 @@ workflows:
   version: 2
   build:
     jobs:
-    - build-and-test
-    - create-package:
-        requires:
-          - build-and-test
-    - publish-package-release:
-        requires:
-          - create-package
+    # - build-and-test
+    - create-package
+        # requires:
+        #   - build-and-test
+    - publish-package-release
+        # requires:
+        #   - create-package
         # filters:
         #   branches:
         #     only: master

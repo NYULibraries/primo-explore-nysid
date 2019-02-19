@@ -1,1 +1,3 @@
-docker run -v $(pwd)/script/release_github.js:/app/release_github.js node:10-alpine node /app/release_github.js
+#!/bin/sh -ex
+
+node app/script/release_github.js
