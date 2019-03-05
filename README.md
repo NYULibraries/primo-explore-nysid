@@ -1,3 +1,5 @@
+# primo-explore-nysid has been consolidated into the monorepo [primo-explore-views](https://github.com/NYULibraries/primo-explore-views)
+
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/NYULibraries/primo-explore-nysid/latest.svg)](https://github.com/NYULibraries/primo-explore-nysid/releases/latest)
 [![CircleCI](https://circleci.com/gh/NYULibraries/primo-explore-nysid.svg?style=svg)](https://circleci.com/gh/NYULibraries/primo-explore-nysid)
 
